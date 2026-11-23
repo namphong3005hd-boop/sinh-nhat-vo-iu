@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(135deg, #ffe5ec 0%, #ffc2d1 100%);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            font-family: 'Quicksand', sans-serif;
+        }
+        /* Emoji bay nền (trái tim, mèo, hoa) */
+        .floating-emoji {
+            position: absolute;
+            opacity: 0.75;
+            animation: floatUp 6s linear infinite;
+            pointer-events: none;
+            user-select: none;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(105vh) scale(0.6) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.85; }
+            80% { opacity: 0.85; }
+            100% { transform: translateY(-15vh) scale(1.2) rotate(20deg); opacity: 0; }
+        }
+
+        /* Phong bì */
+        .envelope-wrapper {
+            position: relative;
+            width: 380px;
+            height: 240px;
+            background: #fff0f3;
+            border-radius: 10px;
+            box-shadow: 0 15px 35px rgba(214, 51, 108, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s;
+            margin-top: 130px;
+            z-index: 2;
+        }
+        .envelope-wrapper:hover {
+            transform: scale(1.02);
+        }
+        /* Nắp phong bì */
+        .flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 190px solid transparent;
+            border-right: 190px solid transparent;
+            border-top: 125px solid #ffccd5;
+            transform-origin: top;
+            transition: transform 0.6s ease;
+            z-index: 4;
+        }
+        .envelope-wrapper.open .flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+        /* Thân trước phong bì */
+        .pocket {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 190px solid #fff;
+            border-right: 190px solid #fff;
+            border-bottom: 120px solid #ffe5ec;
+            border-top: 120px solid transparent;
+            border-radius: 0 0 10px 10px;
+            z-index: 3;
+        }
+        /* Tờ thư bên trong */
+        .letter {
+            position: absolute;
+            bottom: 10px;
+            left: 15px;
+            width: 350px;
+            height: 210px;
+            background: #fff;
+            border-radius: 10px;
+            padding: 22px 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.7s ease;
+            z-index: 2;
+            overflow-y: auto;
+        }
+        .envelope-wrapper.open .letter {
+            transform: translateY(-165px);
+            height: 360px;
+            z-index: 5;
+        }
+        .letter::-webkit-scrollbar {
+            width: 5px;
+        }
+        .letter::-webkit-scrollbar-thumb {
+            background: #ffb3c6;
+            border-radius: 10px;
+        }
+        .letter h3 {
+            font-family: 'Dancing Script', cursive;
+            color: #d6336c;
+            font-size: 26px;
+            margin-bottom: 12px;
+        }
+        .letter p {
+            font-size: 14px;
+            line-height: 1.65;
+            color: #495057;
+            margin-bottom: 11px;
+            text-align: justify;
+        }
+        .signature {
+            text-align: right;
+            font-family: 'Dancing Script', cursive;
+            font-size: 22px;
+            color: #d6336c;
+            margin-top: 12px;
+            font-weight: 700;
+        }
+        .hint-text {
+            margin-top: 25px;
+            color: #c9184a;
+            font-weight: 600;
+            font-size: 15px;
+            animation: pulse 1.5s infinite;
+            z-index: 2;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .next-btn {
+            display: none;
+            margin-top: 25px;
+            padding: 12px 28px;
+            background: #ff4d6d;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+            transition: 0.2s;
+            z-index: 10;
+        }
+        .next-btn:hover {
+            background: #c9184a;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+<div class="envelope-wrapper" id="envelope" onclick="openEnvelope()">
+    <div class="flap"></div>
+    <div class="letter" onclick="event.stopPropagation()">
+        <h3>Gửi bé Ỉn của anh,</h3>
+        <p>Hề sì lô cái bé Ủn Ỉn thúi của anh, cuối cùng thì cũng đến rồi, ngày 24/11 – ngày mà muôn hoa thi nhau đua nở, ngày mà mặt trời chiếu sáng muôn nơi chào đón 1 thiên thần nhỏ của anh giáng trần.</p>
+        <p>Năm nay cũm 18 rùi, thui thì cũng không biết nói chi nhiều, chỉ biết chúc cho em bé iu của anh tuổi 18 thật rực cháy, xinh đến cái mức sao cho anh không nhận ra đâu là hoa, đâu là bé thúi nhà anh nữa.</p>
+        <p>Chúc cho em bé iu của anh luôn gặp những may mắn, những điều xứng đáng thuộc về em. Chúc cho học tập của em thật hanh thông, đạt toàn B+, A, A+, học tập thật tốt nhé bé iu của anh.</p>
+        <p>Và cuối cùng, chúc cho anh và em vẫn sẽ bên nhau như này, cho tới tận sinh nhật năm sau, năm sau nữa của em nha.</p>
+        <p>Sinh nhật thật vui vẻ nha Ủn Ỉn iu của anh, Dương Trúc bé nhỏ của anh.</p>
+        <div class="signature">Yêu cưng nhà anh nhứt ❤️</div>
+    </div>
+    <div class="pocket"></div>
+</div>
+
+<div class="hint-text" id="hint">Bấm vào phong bì để mở thư nhé 💌</div>
+<button class="next-btn" id="nextBtn" onclick="window.location.href='banh.html'">Bước tiếp theo 1 bước vô cùng thú vị</button>
+
+<script>
+    // Danh sách trái tim, con mèo và bông hoa bay ngẫu nhiên
+    const emojis = ['❤️', '💖', '💕', '🐱', '😺', '😻', '🐾', '🌸', '🌷', '🌺', '🌼', '💐'];
+
+    setInterval(() => {
+        const item = document.createElement('div');
+        item.classList.add('floating-emoji');
+        item.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+        item.style.left = Math.random() * 100 + 'vw';
+        item.style.fontSize = (Math.random() * 16 + 16) + 'px';
+        item.style.animationDuration = (Math.random() * 3 + 4.5) + 's';
+        document.body.appendChild(item);
+        setTimeout(() => item.remove(), 7500);
+    }, 350);
+
+    function openEnvelope() {
+        const env = document.getElementById('envelope');
+        env.classList.add('open');
+        document.getElementById('hint').style.display = 'none';
+        setTimeout(() => {
+            document.getElementById('nextBtn').style.display = 'inline-block';
+        }, 800);
+    }
+</script>
+
+</body>
+</html>
